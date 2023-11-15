@@ -5,7 +5,7 @@ using UnityEngine;
 public class BalloonController : MonoBehaviour
 {
     public float upSpeed;
-    int score = 0;
+ //   public int score = 0;
 
     AudioSource audioSource;
     SpriteRenderer spriteRenderer;
@@ -13,6 +13,7 @@ public class BalloonController : MonoBehaviour
 
     private IEnumerator coroutine;
 
+    private GameManager _GameManager;
     //private IEnumerator BalloonDestruction;
 
     private void Awake()
@@ -20,6 +21,11 @@ public class BalloonController : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         _collider2D = GetComponent<CircleCollider2D>();
+    }
+
+    private void Start()
+    {
+        _GameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
     }
 
 
@@ -36,9 +42,8 @@ public class BalloonController : MonoBehaviour
 
     private void OnMouseDown()
     {
-        score++;
+        _GameManager.addScore(1);
         audioSource.Play();
-        Debug.Log(score);
         coroutine = BalloonDestruction();
         StartCoroutine(coroutine);
     }
