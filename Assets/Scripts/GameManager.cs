@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SocialPlatforms.Impl;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     int playerScore = 0;
 
+    [SerializeField] TextMeshProUGUI scoreText;
+
 
     // Start is called before the first frame update
     void Start()
@@ -24,11 +27,6 @@ public class GameManager : MonoBehaviour
         InvokeRepeating("SpawnBalloon", spawnFirstDelay, spawnUpdateDelay);        
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
     void SpawnBalloon()
     {
@@ -41,7 +39,7 @@ public class GameManager : MonoBehaviour
     public void addScore(int scoreToAdd)
     {
         playerScore = playerScore + scoreToAdd;
-        Debug.Log(playerScore);
+        scoreText.text = playerScore.ToString();
     }
 
     

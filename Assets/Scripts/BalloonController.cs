@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BalloonController : MonoBehaviour
 {
     public float upSpeed;
- //   public int score = 0;
 
     AudioSource audioSource;
     SpriteRenderer spriteRenderer;
@@ -14,7 +14,6 @@ public class BalloonController : MonoBehaviour
     private IEnumerator coroutine;
 
     private GameManager _GameManager;
-    //private IEnumerator BalloonDestruction;
 
     private void Awake()
     {
@@ -29,15 +28,10 @@ public class BalloonController : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private void FixedUpdate()
     {
         transform.Translate(0, upSpeed * Time.deltaTime, 0);
+        Restart();
     }
 
     private void OnMouseDown()
@@ -56,5 +50,11 @@ public class BalloonController : MonoBehaviour
         Destroy(gameObject);
     }
 
-
+    private void Restart()
+    {
+        if(transform.position.y >= 6f)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }        
+    }
 }
