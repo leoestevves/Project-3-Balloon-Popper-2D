@@ -8,10 +8,18 @@ public class BalloonController : MonoBehaviour
     int score = 0;
 
     AudioSource audioSource;
+    SpriteRenderer spriteRenderer;
+    CircleCollider2D _collider2D;
+
+    private IEnumerator coroutine;
+
+    //private IEnumerator BalloonDestruction;
 
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        _collider2D = GetComponent<CircleCollider2D>();
     }
 
 
@@ -31,6 +39,17 @@ public class BalloonController : MonoBehaviour
         score++;
         audioSource.Play();
         Debug.Log(score);
-        
+        coroutine = BalloonDestruction();
+        StartCoroutine(coroutine);
     }
+
+    IEnumerator BalloonDestruction()
+    {
+        spriteRenderer.enabled = false;
+        _collider2D.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        Destroy(gameObject);
+    }
+
+
 }
